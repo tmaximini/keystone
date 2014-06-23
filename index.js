@@ -10,8 +10,7 @@ var fs = require('fs'),
 	numeral = require('numeral'),
 	cloudinary = require('cloudinary'),
 	mandrillapi = require('mandrill-api'),
-	utils = require('keystone-utils'),
-	connectLr  = require('connect-livereload');
+	utils = require('keystone-utils');
 
 var templateCache = {};
 
@@ -629,7 +628,9 @@ Keystone.prototype.mount = function(mountPath, parentApp, events) {
 
 	if (this.get('env') === 'development') {
 		console.log('setting gulp live reload');
-		keystone.express().use(connectLr());
+		app.use(require('connect-livereload')({
+    	port: 35729
+  	}));
 	}
 
 
